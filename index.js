@@ -67,7 +67,7 @@
         const pic = { type: 'image', 
         originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
         previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
-        return client.replyMessage(event.replyToken, echo);
+        return client.replyMessage(event.replyToken, pic);
     }
     else {
         // create a echoing text message
