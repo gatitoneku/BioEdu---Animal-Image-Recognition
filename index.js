@@ -19,9 +19,16 @@
   // register a webhook handler with middleware
   // about the middleware, please refer to doc
   app.post('/callback', line.middleware(config), (req, res) => {
+    if(req.body.events.message.text==="halo") {
+        Promise
+        .all(req.body.events.map(handleEventWithName))
+        .then((result) => res.json(result));
+    }
+    else{
     Promise
       .all(req.body.events.map(handleEvent))
       .then((result) => res.json(result));
+    }
   });
 
   app.get('/', function (req, res) {
@@ -40,6 +47,26 @@
   
     // use reply API
     return client.replyMessage(event.replyToken, echo);
+  }
+
+  function handleEventWithName(event) {
+    if (event.type !== 'message' || event.message.type !== 'text') {
+        // ignore non-text-message event
+        return Promise.resolve(null);
+      }
+      var name;
+
+      client.getProfile(event.source.userId)
+      .then((profile) => {
+          name = profile.displayName;
+        })
+
+      var msg = 'hello' + name;
+      // create a echoing text message
+      const echo = { type: 'text', text: msg };
+    
+      // use reply API
+      return client.replyMessage(event.replyToken, echo);
   }
   
   // listen on port
