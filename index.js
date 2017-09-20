@@ -59,12 +59,12 @@
           var msg = 'hello' + name;
           // create a echoing text message
           const echo = { type: 'text', text: msg };
-        })
 
-      
-    
+
       // use reply API
       return client.replyMessage(event.replyToken, echo);
+        })
+    
   }
   
   // listen on port
