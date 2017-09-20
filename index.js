@@ -49,7 +49,7 @@
         // ignore non-text-message event
         return Promise.resolve(null);
       }
-    if (event.message.text==='halo') {
+    if (event.message.text === 'halo') {
         var name;
         console.log(event.source.userId);    
         client.getProfile(event.source.userId)
@@ -58,16 +58,20 @@
             name = profile.displayName;   
   
             var msg = 'hello ' + name;
-            // create a echoing text message
             const echo = { type: 'text', text: msg };
-
-           // use reply API
-           return client.replyMessage(event.replyToken, echo);
+            return client.replyMessage(event.replyToken, echo);
           })
     }  
+    else if (event.message.text === 'woof') {
+       
+        const pic = { type: 'image', 
+        originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
+        previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
+        return client.replyMessage(event.replyToken, echo);
+    }
     else {
         // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
+      const echo = { type: 'text', text: event.message.text };
     
       // use reply API
       return client.replyMessage(event.replyToken, echo);
