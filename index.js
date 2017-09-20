@@ -19,16 +19,11 @@
   // register a webhook handler with middleware
   // about the middleware, please refer to doc
   app.post('/callback', line.middleware(config), (req, res) => {
-    if(req.body.events.message.text==="halo") {
-        Promise
-        .all(req.body.events.map(handleEventWithName))
-        .then((result) => res.json(result));
-    }
-    else{
+    
     Promise
-      .all(req.body.events.map(handleEvent))
+      .all(req.body.events.map(handleEventWithName))
       .then((result) => res.json(result));
-    }
+    
   });
 
   app.get('/', function (req, res) {
@@ -58,7 +53,7 @@
 
       client.getProfile(event.source.userId)
       .then((profile) => {
-          name = profile.displayName;
+          name = profile.displayName;   
         })
 
       var msg = 'hello' + name;
