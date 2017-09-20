@@ -23,6 +23,10 @@
       .all(req.body.events.map(handleEvent))
       .then((result) => res.json(result));
   });
+
+  app.get('/', function (req, res) {
+    res.send('Hello World!')
+  })
   
   // event handler
   function handleEvent(event) {
