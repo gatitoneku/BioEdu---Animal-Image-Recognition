@@ -50,15 +50,18 @@
         return Promise.resolve(null);
       }
       var name;
-      console.log(event.source);
+      console.log(event.source.userId);    
       client.getProfile(event.source.userId)
       .then((profile) => {
+          console.log(profile.displayName);
           name = profile.displayName;   
+
+          var msg = 'hello' + name;
+          // create a echoing text message
+          const echo = { type: 'text', text: msg };
         })
 
-      var msg = 'hello' + name;
-      // create a echoing text message
-      const echo = { type: 'text', text: msg };
+      
     
       // use reply API
       return client.replyMessage(event.replyToken, echo);
