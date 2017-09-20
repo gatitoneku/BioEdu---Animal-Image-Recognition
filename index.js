@@ -50,7 +50,7 @@
         return Promise.resolve(null);
       }
       var name;
-
+      console.log(event.source);
       client.getProfile(event.source.userId)
       .then((profile) => {
           name = profile.displayName;   
