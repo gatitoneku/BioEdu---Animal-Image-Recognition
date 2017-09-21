@@ -65,6 +65,15 @@
           })
     }  
     else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
+        console.log(event.message.text);
+        var wibu;
+        arrayOfStrings.forEach((string) => {
+          wibu = /(w|W)ibu/.test(string);
+        })
+        if(wibu){
+          const echo = { type: 'text', text: "Selamat, anda sangat wibu" };
+          return client.replyMessage(event.replyToken, echo);
+        }
         const echo = { type: 'text', text: Math.random() > 0.49 ? "ya" : "tidak" };
         return client.replyMessage(event.replyToken, echo);
     }
