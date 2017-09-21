@@ -49,6 +49,8 @@
         // ignore non-text-message event
         return Promise.resolve(null);
       }
+    var arrayOfStrings = event.message.text.split(" ");  
+
     if (event.message.text === 'halo') {
         var name;
         console.log(event.source.userId);    
@@ -62,8 +64,11 @@
             return client.replyMessage(event.replyToken, echo);
           })
     }  
+    else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
+        const echo = { type: 'text', text: Math.random() > 0.49 ? "ya" : "tidak" };
+        return client.replyMessage(event.replyToken, echo);
+    }
     else if (event.message.text === 'woof') {
-       
         const pic = { type: 'image', 
         originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
         previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
