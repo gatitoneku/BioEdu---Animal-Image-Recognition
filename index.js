@@ -2,6 +2,8 @@
   
   const line = require('@line/bot-sdk');
   const express = require('express');
+
+  const words = require('./words');
   
   // create LINE SDK config from env variables
   const config = {
@@ -76,6 +78,13 @@
         }
         const echo = { type: 'text', text: Math.random() > 0.49 ? "ya" : "tidak" };
         return client.replyMessage(event.replyToken, echo);
+    }
+    else if(/([^.?!]*)\?$/.test(event.message.text)) {
+      var reply = "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
+      " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)];
+
+      const echo = { type: 'text', text: reply}
+      return client.replyMessage(event.replyToken, echo);
     }
     else if (event.message.text === 'woof') {
         const pic = { type: 'image', 
