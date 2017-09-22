@@ -26,7 +26,7 @@
     
     if(isDed) {
       Promise
-      .all(req.body.events.map(handleEventWithName));
+      .all(req.body.events.map(handleDead)); 
     }
     else{
     Promise
