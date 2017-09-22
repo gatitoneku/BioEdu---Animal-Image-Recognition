@@ -25,7 +25,8 @@
   app.post('/callback', line.middleware(config), (req, res) => {
     
     if(isDed) {
-      handleDead;
+      Promise
+      .all(req.body.events.map(handleEventWithName));
     }
     else{
     Promise
