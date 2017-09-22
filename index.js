@@ -24,7 +24,9 @@
   // about the middleware, please refer to doc
   app.post('/callback', line.middleware(config), (req, res) => {
     
-    if(isDed) {}
+    if(isDed) {
+      handleDead;
+    }
     else{
     Promise
       .all(req.body.events.map(handleEventWithName))
@@ -108,6 +110,12 @@
     
       // use reply API
       return client.replyMessage(event.replyToken, echo);
+    }
+  }
+
+  function handleDead(event) {
+    if (event.message.text === 'activate') {
+      isDed = false;
     }
   }
   
