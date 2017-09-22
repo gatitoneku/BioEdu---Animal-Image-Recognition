@@ -17,15 +17,19 @@
   // create Express app
   // about Express itself: https://expressjs.com/
   const app = express();
+
+  var isDed = false;
   
   // register a webhook handler with middleware
   // about the middleware, please refer to doc
   app.post('/callback', line.middleware(config), (req, res) => {
     
+    if(isDed) {}
+    else{
     Promise
       .all(req.body.events.map(handleEventWithName))
       .then((result) => res.json(result));
-    
+    }
   });
 
   app.get('/', function (req, res) {
@@ -91,6 +95,12 @@
         originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
         previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
         return client.replyMessage(event.replyToken, pic);
+    }
+    else if (event.message.text === '!kill') {
+      isDed = true;
+    }
+    else if (event.message.text === 'activate') {
+      isDed = false;
     }
     else {
         // create a echoing text message

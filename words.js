@@ -6,6 +6,6 @@ const katakerja = ['mengacak', 'mengaduk', 'menghisap', 'menyiram', 'menulis', '
 const katabenda = ['ayah', 'ayam', 'abang', 'bakso', 'ampas', 'arwah', 'asu', 'amerika', 'akar', 'abu', 'baju', 'beruang', 'ulat', 'babi ngepet', 'bantal', 'bandeng', 'babi', 'anjing', 'bintang', 'rusa',
 'kontol', 'kuntul', 'bebek', 'bangau', 'hak asasi manusia', 'bingkisan', 'botol', 'bajaj', 'konstitusi dan undang undang dasar', 'dendeng', 'kuda', 'mobil', 'motor', 'bis kuning',
 'makara', 'komputer', 'handphone', 'telepon', 'tv', 'radio', 'meja', 'kursi', 'lubang', 'kendaraan', 'obat', 'depok', 'jakarta', 'gajah', 'kencing', 'kotoran', 'baju','furnitur', 'berak', 'tahi', 'kecoa',
-'kadal', 'macan', 'bangku taman', 'rumput', 'pohon', 'dedaunan', 'ikan', 'wajah anda', 'kebebasan berbicara', 'kue', 'RNG', 'kerupuk'];
+'kadal', 'macan', 'bangku taman', 'rumput', 'pohon', 'dedaunan', 'ikan', 'wajah anda', 'kebebasan berbicara', 'kue', 'RNG', 'kerupuk', 'bulu'];
 
 module.exports = { katakerja, katabenda }
