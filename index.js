@@ -121,7 +121,7 @@
       }
       else if(/([^.?!]*)\?$/.test(event.message.text)) {
         var reply = Math.random() < 0.70 ? "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
-        " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)] : words.quotes[Math.floor(Math.random() * words.quotes.length]);
+        " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)] : words.quotes[Math.floor(Math.random() * words.quotes.length)];
 
         const echo = { type: 'text', text: reply}
         return client.replyMessage(event.replyToken, echo);
