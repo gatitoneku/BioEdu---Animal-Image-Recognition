@@ -30,7 +30,7 @@ to use this script to perform image recognition.
 
 https://tensorflow.org/tutorials/image_recognition/
 """
-
+""""""
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -214,7 +214,7 @@ if __name__ == '__main__':
   parser.add_argument(
       '--image_file',
       type=str,
-      default='/Users/gatitoneku/Downloads/S__16654803.jpg',
+      default='',
       help='Absolute path to image file.'
   )
   parser.add_argument(
@@ -224,4 +224,5 @@ if __name__ == '__main__':
       help='Display this many predictions.'
   )
   FLAGS, unparsed = parser.parse_known_args()
+  print(FLAGS, unparsed)
   tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)

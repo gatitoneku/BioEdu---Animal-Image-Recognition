@@ -68,10 +68,10 @@
       })
       .then(() => {
         const spawn = require('child_process').spawn;
-        const pyproc = spawn('python3', ["./classify_image.py", "--image_file ./default.jpg"]);
+        const pyproc = spawn('python3', ["classify_image.py", "--image_file ./default.jpg"]);
         
               pyproc.stdout.on('data', (data) => {
-                console.log('processing...s');
+                console.log(`stdout: ${data}`);
               });
         
               pyproc.stderr.on('data', (data) => {
