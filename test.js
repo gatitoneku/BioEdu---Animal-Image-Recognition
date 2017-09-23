@@ -10,5 +10,5 @@ ls.stderr.on('data', (data) => {
 });
 
 ls.on('close', (code) => {
-  console.log(`childs process exited with tis code ${code}`);
+  console.log(`chils process exited with tis code ${code}`);
 });
