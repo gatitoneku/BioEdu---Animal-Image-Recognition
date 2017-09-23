@@ -93,7 +93,7 @@
     } 
     else if (event.message.type === 'text') {
       var arrayOfStrings = event.message.text.split(" "); 
-      if (event.message.text === 'halo') {
+      if (/(h|H)alo/.test(event.message.text)) {
         var name;
         console.log(event.source.userId);    
         client.getProfile(event.source.userId)
@@ -120,8 +120,8 @@
           return client.replyMessage(event.replyToken, echo);
       }
       else if(/([^.?!]*)\?$/.test(event.message.text)) {
-        var reply = "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
-        " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)];
+        var reply = Math.random() < 0.70 ? "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
+        " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)] : words.quotes[Math.floor(Math.random() * words.quotes.length]);
 
         const echo = { type: 'text', text: reply}
         return client.replyMessage(event.replyToken, echo);

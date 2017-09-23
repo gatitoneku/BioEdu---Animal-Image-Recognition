@@ -1,12 +1,13 @@
 const katakerja = ['mengacak', 'mengaduk', 'menghisap', 'menyiram', 'menulis', 'melihat', 'menonton', 'memanggil', 'menangkis', 'melanggar', 'menyakiti', 'menghibur',
  'menyambungkan', 'mengajar', 'menlindungi', 'membakar', 'memandang', 'menyimpan', 'mengangkat', 'mencium', 'mengaduk', 'mendahului', 'menabrak', 'menanggulangi',
 'memperbaiki', 'merusak', 'mengurangi', 'menambah', 'menanam', 'memotong', 'meracik', 'merangkai', 'merampok', 'melamar', 'mengukur', 'menjaga', 'menggoreng', 'merebus',
-'membungkus', 'menggeser', 'mengguncang', 'membudidayakan', 'mengkebiri', 'mendorong', 'menarik', 'merevisi', 'mengkukus', 'menjilat', 'menyembah'];
+'membungkus', 'menggeser', 'mengguncang', 'membudidayakan', 'mengkebiri', 'mendorong', 'menarik', 'merevisi', 'mengkukus', 'menjilat', 'menyembah', 'meniduri', 'menggali', 'minum'];
 
 const katabenda = ['ayah', 'ayam', 'abang', 'bakso', 'ampas', 'arwah', 'asu', 'amerika', 'akar', 'abu', 'baju', 'beruang', 'ulat', 'babi ngepet', 'bantal', 'bandeng', 'babi', 'anjing', 'bintang', 'rusa',
 'kontol', 'kuntul', 'bebek', 'bangau', 'hak asasi manusia', 'bingkisan', 'botol', 'bajaj', 'konstitusi dan undang undang dasar', 'dendeng', 'kuda', 'mobil', 'motor', 'bis kuning',
 'makara', 'komputer', 'handphone', 'telepon', 'tv', 'radio', 'meja', 'kursi', 'lubang', 'kendaraan', 'obat', 'depok', 'jakarta', 'gajah', 'kencing', 'kotoran', 'baju','furnitur', 'berak', 'tahi', 'kecoa',
-'kadal', 'macan', 'bangku taman', 'rumput', 'pohon', 'dedaunan', 'ikan', 'wajah anda', 'kebebasan berbicara', 'kue', 'RNG', 'kerupuk', 'bulu'];
+'kadal', 'macan', 'bangku taman', 'rumput', 'pohon', 'dedaunan', 'ikan', 'wajah anda', 'kebebasan berbicara', 'kue', 'RNG', 'kerupuk', 'bulu', 'kasur', 'buku', 'dakimakura', 'mp3 player', 'sayur', 'tomat',
+'apel', 'jengkol', 'kuburan', 'asap', 'rokok', 'vape', 'baygon'];
 
 const quotes = ['All movements go too far.', 'The town where I grew up has a zip code of E-I-E-I-O.', 'I long to accomplish a great and noble task, but it is my chief duty to accomplish humble tasks as though they were great and noble. The world is moved along, not only by the mighty shoves of its heroes, but also by the aggregate of the tiny pushes of each honest worker.',
 'Inanimate objects are classified scientifically into three major categories - those that don\'t work, those that break down and those that get lost.', 'For one human being to love another; that is perhaps the most difficult of all our tasks, the ultimate, the last test and proof, the work for which all other work is but preparation.',
@@ -19,4 +20,4 @@ const quotes = ['All movements go too far.', 'The town where I grew up has a zip
 "For you to be successful, sacrifices must be made. It's better that they are made by others but failing that, you'll have to make them yourself.", "There are people whom one loves immediately and forever. Even to know they are alive in the world with one is quite enough.",
 "A weapon is a device for making your enemy change his mind.", "I'm just trying to make a smudge on the collective unconscious.", "Imitation is the sincerest form of television."]
 
-module.exports = { katakerja, katabenda }
+module.exports = { katakerja, katabenda, quotes }
