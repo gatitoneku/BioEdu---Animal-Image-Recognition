@@ -64,7 +64,7 @@
     if (event.message.type === 'image') {
       client.getMessageContent(event.message.id)
       .then((stream) => {
-        stream.data.pipe(fs.createWriteStream('default.jpg'));
+        stream.pipe(fs.createWriteStream('default.jpg'));
       })
       .then(() => {
         const spawn = require('child_process').spawn;
