@@ -74,9 +74,6 @@
         
               pyproc.stdout.on('data', (data) => {
                 replyString = String(data);
-
-                const echo = { type: 'text', text: "itu adalah " + replyString};
-                return client.replyMessage(event.replyToken, echo);
               });
         
               pyproc.stderr.on('data', (data) => {
@@ -87,6 +84,10 @@
                 console.log(`child process exited with code ${code}`);
               });
       })
+      .then(() => {
+        const echo = { type: 'text', text: "itu adalah " + replyString};
+        return client.replyMessage(event.replyToken, echo);
+      });
     } 
     else if (event.message.type === 'text') {
       var arrayOfStrings = event.message.text.split(" "); 
