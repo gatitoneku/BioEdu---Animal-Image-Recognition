@@ -62,6 +62,8 @@
       }
    
     if (event.message.type === 'image') {
+      var replyString;
+
       client.getMessageContent(event.message.id)
       .then((stream) => {
         stream.pipe(fs.createWriteStream('default.jpg'));
@@ -73,7 +75,7 @@
               pyproc.stdout.on('data', (data) => {
                 replyString = String(data);
 
-                const echo = { type: 'text', text: replyString};
+                const echo = { type: 'text', text: "itu adalah " + replyString};
                 return client.replyMessage(event.replyToken, echo);
               });
         
