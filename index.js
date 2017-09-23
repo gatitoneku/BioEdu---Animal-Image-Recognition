@@ -2,6 +2,8 @@
   
   const line = require('@line/bot-sdk');
   const express = require('express');
+  //const axios = require('axios');
+  const fs = require('fs');
 
   const words = require('./words');
   
@@ -18,7 +20,7 @@
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  var isDed = false;
+  var isDed = true;
   
   // register a webhook handler with middleware
   // about the middleware, please refer to doc
@@ -54,13 +56,36 @@
   }
 
   function handleEventWithName(event) {
-    if (event.type !== 'message' || event.message.type !== 'text') {
+    if (event.type !== 'message') {
         // ignore non-text-message event
         return Promise.resolve(null);
       }
-    var arrayOfStrings = event.message.text.split(" ");  
-
-    if (event.message.text === 'halo') {
+   
+    if (event.message.type === 'image') {
+      client.getMessageContent(event.message.id)
+      .then((stream) => {
+        stream.data.pipe(fs.createWriteStream('default.jpg'));
+      })
+      .then(() => {
+        const spawn = require('child_process').spawn;
+        const pyproc = spawn('python3', ["./classify_image.py", "--image_file default.jpg"]);
+        
+              pyproc.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
+              });
+        
+              pyproc.stderr.on('data', (data) => {
+                console.log(`stderr: ${data}`);
+              });
+              
+              pyproc.on('close', (code) => {
+                console.log(`child process exited with code ${code}`);
+              });
+      })
+    } 
+    else if (event.message.type === 'text') {
+      var arrayOfStrings = event.message.text.split(" ");  
+      if (event.message.text === 'halo') {
         var name;
         console.log(event.source.userId);    
         client.getProfile(event.source.userId)
@@ -105,6 +130,21 @@
     else if (event.message.text === 'activate') {
       isDed = false;
     }
+    else if (event.message.txt === 'classify') {
+      const pyproc = spawn('python3', ["./classify_image.py", "--image-version"]);
+
+      ls.stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`);
+      });
+
+      ls.stderr.on('data', (data) => {
+        console.log(`stderr: ${data}`);
+      });
+      
+      ls.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+      });
+    }
     else {
         // create a echoing text message
       const echo = { type: 'text', text: event.message.text };
@@ -112,11 +152,17 @@
       // use reply API
       return client.replyMessage(event.replyToken, echo);
     }
+
+    }
+    
+    
   }
 
   function handleDead(event) {
     if (event.message.text === 'activate') {
       isDed = false;
+      const echo = { type: 'text', text: 'Salam kenal, saya adalah pengganti'};
+      return client.replyMessage(event.replyToken, echo);
     }
   }
   
