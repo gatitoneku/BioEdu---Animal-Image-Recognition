@@ -20,7 +20,7 @@
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  var isDed = true;
+  var isDed = false;
   
   // register a webhook handler with middleware
   // about the middleware, please refer to doc
