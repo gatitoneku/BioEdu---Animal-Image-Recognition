@@ -139,8 +139,7 @@
         isDed = false;
       }
       else {
-        const echo = { type: 'text', text: event.message.text };
-        return client.replyMessage(event.replyToken, echo);
+        return Promise.resolve(null);
       }
     }
   }
