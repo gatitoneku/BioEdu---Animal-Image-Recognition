@@ -219,9 +219,9 @@ if __name__ == '__main__':
   parser.add_argument(
       '--num_top_predictions',
       type=int,
-      default=5,
+      default=1,
       help='Display this many predictions.'
   )
   FLAGS, unparsed = parser.parse_known_args()
-  print(FLAGS, unparsed)
+  #print(FLAGS, unparsed)
   tf.app.run(main=main, argv=[sys.argv[0]] + unparsed)

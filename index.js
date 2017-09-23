@@ -71,7 +71,10 @@
         const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
         
               pyproc.stdout.on('data', (data) => {
-                console.log(`stdout: ${data}`);
+                replyString = string(data);
+
+                const echo = { type: 'text', text: replyString};
+                return client.replyMessage(event.replyToken, echo);
               });
         
               pyproc.stderr.on('data', (data) => {
