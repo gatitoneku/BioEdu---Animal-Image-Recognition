@@ -84,7 +84,7 @@
       })
     } 
     else if (event.message.type === 'text') {
-      var arrayOfStrings = event.message.text.split(" ");  
+      var arrayOfStrings = event.message.text.split(" "); 
       if (event.message.text === 'halo') {
         var name;
         console.log(event.source.userId);    
@@ -92,70 +92,49 @@
         .then((profile) => {
             console.log(profile.displayName);
             name = profile.displayName;   
-  
+
             var msg = 'hello ' + name;
             const echo = { type: 'text', text: msg };
             return client.replyMessage(event.replyToken, echo);
           })
-    }  
-    else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
-        console.log(event.message.text);
-        var wibu;
-        arrayOfStrings.forEach((string) => {
-          wibu = /(w|W)ibu/.test(string);
-        })
-        if(wibu){
-          const echo = { type: 'text', text: "Selamat, anda sangat wibu" };
+      }  
+      else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
+          console.log(event.message.text);
+          var wibu;
+          arrayOfStrings.forEach((string) => {
+            wibu = /(w|W)ibu/.test(string);
+          })
+          if(wibu){
+            const echo = { type: 'text', text: "Selamat, anda sangat wibu" };
+            return client.replyMessage(event.replyToken, echo);
+          }
+          const echo = { type: 'text', text: Math.random() > 0.49 ? "ya" : "tidak" };
           return client.replyMessage(event.replyToken, echo);
-        }
-        const echo = { type: 'text', text: Math.random() > 0.49 ? "ya" : "tidak" };
+      }
+      else if(/([^.?!]*)\?$/.test(event.message.text)) {
+        var reply = "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
+        " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)];
+
+        const echo = { type: 'text', text: reply}
         return client.replyMessage(event.replyToken, echo);
+      }
+      else if (event.message.text === 'woof') {
+          const pic = { type: 'image', 
+          originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
+          previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
+          return client.replyMessage(event.replyToken, pic);
+      }
+      else if (event.message.text === '!kill') {
+        isDed = true;
+      }
+      else if (event.message.text === 'activate') {
+        isDed = false;
+      }
+      else {
+        const echo = { type: 'text', text: event.message.text };
+        return client.replyMessage(event.replyToken, echo);
+      }
     }
-    else if(/([^.?!]*)\?$/.test(event.message.text)) {
-      var reply = "Sebaiknya anda " + words.katakerja[Math.floor(Math.random() * words.katakerja.length)] + 
-      " " + words.katabenda[Math.floor(Math.random() * words.katabenda.length)];
-
-      const echo = { type: 'text', text: reply}
-      return client.replyMessage(event.replyToken, echo);
-    }
-    else if (event.message.text === 'woof') {
-        const pic = { type: 'image', 
-        originalContentUrl: 'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d',
-        previewImageUrl:  'https://t1.rbxcdn.com/05bc39f41d747418cfd98e3c667b367d'};
-        return client.replyMessage(event.replyToken, pic);
-    }
-    else if (event.message.text === '!kill') {
-      isDed = true;
-    }
-    else if (event.message.text === 'activate') {
-      isDed = false;
-    }
-    else if (event.message.txt === 'classify') {
-      const pyproc = spawn('python3', ["./classify_image.py", "--image-version"]);
-
-      ls.stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`);
-      });
-
-      ls.stderr.on('data', (data) => {
-        console.log(`stderr: ${data}`);
-      });
-      
-      ls.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-      });
-    }
-    else {
-        // create a echoing text message
-      const echo = { type: 'text', text: event.message.text };
-    
-      // use reply API
-      return client.replyMessage(event.replyToken, echo);
-    }
-
-    }
-    
-    
   }
 
   function handleDead(event) {
