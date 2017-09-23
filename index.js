@@ -82,7 +82,10 @@
               
               pyproc.on('close', (code) => {
                 console.log(`child process exited with code ${code}`);
-                const echo = { type: 'text', text: "itu adalah " + replyString};
+
+                var replyArrayString = replyString.split(",")
+
+                const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
                 return client.replyMessage(event.replyToken, echo);
               });
       })
