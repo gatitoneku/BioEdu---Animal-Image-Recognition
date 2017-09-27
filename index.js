@@ -110,7 +110,7 @@
           console.log(event.message.text);
           var wibu;
 
-          wibu = arrayOfString.some((string) => {
+          wibu = arrayOfStrings.some((string) => {
             return /(w|W)ibu/.test(string);
           });
 
