@@ -111,8 +111,13 @@
           var wibu;
           arrayOfStrings.forEach((string) => {
             wibu = /(w|W)ibu/.test(string);
+            deawibu = /(d|D)ea (w|W)ibu/.test(string)
           })
-          if(wibu){
+          if(deawibu){
+            const echo = { type: 'text', text: "ya" };
+            return client.replyMessage(event.replyToken, echo);
+          }
+          else if(wibu){
             const echo = { type: 'text', text: "Selamat, anda sangat wibu" };
             return client.replyMessage(event.replyToken, echo);
           }

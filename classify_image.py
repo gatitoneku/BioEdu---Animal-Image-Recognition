@@ -184,13 +184,13 @@ def maybe_download_and_extract():
     print('Successfully downloaded', filename, statinfo.st_size, 'bytes.')
   tarfile.open(filepath, 'r:gz').extractall(dest_directory)
 
-isDownloaded = false
+isDownloaded = False
 
 def main(_):
   
   if !isDownloaded:
     maybe_download_and_extract()
-    isDownloaded = true
+    isDownloaded = True
 
   image = (os.path.join(os.path.dirname(__file__),FLAGS.image_file) if FLAGS.image_file else
            os.path.join(FLAGS.model_dir, 'cropped_panda.jpg'))
