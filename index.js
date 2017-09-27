@@ -112,7 +112,6 @@
           arrayOfStrings.forEach((string) => {
             wibu = /(w|W)ibu/.test(string);
             break;
-            deawibu = /(d|D)ea/.test(string);
           });
           arrayOfStrings.forEach((string) => {
             deawibu = /(d|D)ea/.test(string);
