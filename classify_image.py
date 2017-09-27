@@ -184,9 +184,14 @@ def maybe_download_and_extract():
     print('Successfully downloaded', filename, statinfo.st_size, 'bytes.')
   tarfile.open(filepath, 'r:gz').extractall(dest_directory)
 
+isDownloaded = false
 
 def main(_):
-  maybe_download_and_extract()
+  
+  if !isDownloaded:
+    maybe_download_and_extract()
+    isDownloaded = true
+
   image = (os.path.join(os.path.dirname(__file__),FLAGS.image_file) if FLAGS.image_file else
            os.path.join(FLAGS.model_dir, 'cropped_panda.jpg'))
   run_inference_on_image(image)
