@@ -109,14 +109,15 @@
       else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
           console.log(event.message.text);
           var wibu;
-          arrayOfStrings.forEach((string) => {
-            wibu = /(w|W)ibu/.test(string);
-            break;
+
+          wibu = arrayOfString.some((string) => {
+            return /(w|W)ibu/.test(string);
           });
-          arrayOfStrings.forEach((string) => {
-            deawibu = /(d|D)ea/.test(string);
-            break;
+
+          deawibu = arrayOfStrings.some((string) => {
+            return /(d|D)ea/.test(string);
           });
+          
           if(wibu && deawibu){
             const echo = { type: 'text', text: "ya" };
             return client.replyMessage(event.replyToken, echo);
