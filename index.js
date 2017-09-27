@@ -109,6 +109,7 @@
       else if(/(a|A)pakah/.test(arrayOfStrings[0])) {
           console.log(event.message.text);
           var wibu;
+          var deawibu;
 
           wibu = arrayOfStrings.some((string) => {
             return /(w|W)ibu/.test(string);
