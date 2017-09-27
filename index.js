@@ -111,9 +111,9 @@
           var wibu;
           arrayOfStrings.forEach((string) => {
             wibu = /(w|W)ibu/.test(string);
-            deawibu = /(d|D)ea (w|W)ibu/.test(string)
+            deawibu = /(d|D)ea/.test(string)
           })
-          if(deawibu){
+          if(wibu && deawibu){
             const echo = { type: 'text', text: "ya" };
             return client.replyMessage(event.replyToken, echo);
           }
