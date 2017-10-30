@@ -2,6 +2,12 @@
   
   const line = require('@line/bot-sdk');
   const express = require('express');
+  var bodyParser = require('body-parser');
+  var multer = require('multer'); // v1.0.5
+  var upload = multer(); // for parsing multipart/form-data
+  
+  app.use(bodyParser.json()); // for parsing application/json
+  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   //const axios = require('axios');
   const fs = require('fs');
 
@@ -37,9 +43,9 @@
     }
   });
 
-  app.post('/mobilecallback', (req, res) => {
+  app.post('/mobilecallback', upload.array(), (req, res) => {
     console.log("Congratulations");
-    res.send(req.body);
+    res.json(req.body);
     //res.send("yo");
   });
 
