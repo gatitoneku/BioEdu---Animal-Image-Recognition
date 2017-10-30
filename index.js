@@ -77,7 +77,7 @@
     
                     const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
                     console.log(echo);
-                    res.send(echo);
+                    res.send(replyArrayString[0]);
                   });
          
 
