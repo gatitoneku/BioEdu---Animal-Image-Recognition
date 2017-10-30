@@ -39,6 +39,7 @@
 
   app.post('/mobilecallback', (req, res) => {
     console.log("Congratulations");
+    res.json(req.body);
   });
 
   app.get('/', function (req, res) {
@@ -118,16 +119,8 @@
           wibu = arrayOfStrings.some((string) => {
             return /(w|W)ibu/.test(string);
           });
-
-          deawibu = arrayOfStrings.some((string) => {
-            return /(d|D)ea/.test(string);
-          });
           
-          if(wibu && deawibu){
-            const echo = { type: 'text', text: "ya" };
-            return client.replyMessage(event.replyToken, echo);
-          }
-          else if(wibu){
+          if(wibu){
             const echo = { type: 'text', text: "Selamat, anda sangat wibu" };
             return client.replyMessage(event.replyToken, echo);
           }
