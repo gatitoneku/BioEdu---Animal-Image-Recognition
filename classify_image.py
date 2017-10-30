@@ -188,7 +188,7 @@ def maybe_download_and_extract():
 
 def main(_):
   
-  maybe_download_and_extract()
+  #maybe_download_and_extract()
 
   image = (os.path.join(os.path.dirname(__file__),FLAGS.image_file) if FLAGS.image_file else
            os.path.join(FLAGS.model_dir, 'cropped_panda.jpg'))
