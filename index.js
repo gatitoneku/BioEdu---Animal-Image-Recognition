@@ -76,11 +76,11 @@
                     var replyArrayString = replyString.split(",")
     
                     const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
-                    return client.replyMessage(event.replyToken, echo);
+                  
                   });
          
 
-      res.json(req.body);
+      res.send(replyString[0]);
   });
 
   app.get('/', function (req, res) {
