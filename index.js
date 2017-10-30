@@ -39,7 +39,8 @@
 
   app.post('/mobilecallback', (req, res) => {
     console.log("Congratulations");
-    res.json(req.body);
+    //res.json(req.body);
+    res.send("yo");
   });
 
   app.get('/', function (req, res) {
