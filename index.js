@@ -37,6 +37,10 @@
     }
   });
 
+  app.post('/mobilecallback', (req, res) => {
+    console.log("Congratulations");
+  });
+
   app.get('/', function (req, res) {
     res.send('Hello World!')
   })
