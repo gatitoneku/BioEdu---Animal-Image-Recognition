@@ -3,17 +3,18 @@
   const line = require('@line/bot-sdk');
   const express = require('express');
   var bodyParser = require('body-parser');
+  var {Base64Encode} = require('base64-stream');  
   var multer = require('multer'); // v1.0.5
   var upload = multer(); // for parsing multipart/form-data
-  
+   //const axios = require('axios');
+  const fs = require('fs');
    // create Express app
   // about Express itself: https://expressjs.com/
   const app = express();
 
   app.use(bodyParser.json()); // for parsing application/json
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-  //const axios = require('axios');
-  const fs = require('fs');
+ 
 
   const words = require('./words');
   
@@ -47,8 +48,39 @@
 
   app.post('/mobilecallback', upload.array(), (req, res) => {
     console.log("Congratulations");
-    res.json(req.body);
-    //res.send("yo");
+  
+    var replyString;
+    var b64image = req.body.image_path;
+    var buf = Buffer.from(b64image, 'base64');
+
+
+         
+          fs.writeFile('default.jpg', b64image, 'base64', function (err) {
+            console.log(err);
+          });
+         
+            const spawn = require('child_process').spawn;
+            const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
+            
+                  pyproc.stdout.on('data', (data) => {
+                    replyString = String(data);
+                  });
+            
+                  pyproc.stderr.on('data', (data) => {
+                    console.log(`stderr: ${data}`);
+                  });
+                  
+                  pyproc.on('close', (code) => {
+                    console.log(`child process exited with code ${code}`);
+    
+                    var replyArrayString = replyString.split(",")
+    
+                    const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
+                    return client.replyMessage(event.replyToken, echo);
+                  });
+         
+
+      res.json(req.body);
   });
 
   app.get('/', function (req, res) {
