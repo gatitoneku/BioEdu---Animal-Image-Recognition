@@ -76,7 +76,8 @@
                     var replyArrayString = replyString.split(",")
     
                     const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
-                    res.send(replyString[0]);
+                    console.log(echo);
+                    res.send(echo);
                   });
          
 
