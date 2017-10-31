@@ -12,7 +12,7 @@
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  app.use(bodyParser.json()); // for parsing application/json
+  app.use(bodyParser.json({limit: '5000kb'})); // for parsing application/json
   app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
  
 
@@ -51,10 +51,8 @@
   
     var replyString;
     var b64image = req.body.image_path;
-    var buf = Buffer.from(b64image, 'base64');
+    //var buf = Buffer.from(b64image, 'base64');
 
-
-         
           fs.writeFile('default.jpg', b64image, 'base64', function (err) {
             console.log(err);
           });
@@ -79,9 +77,7 @@
                     console.log(echo);
                     res.send(replyArrayString[0]);
                   });
-         
-
-      
+        
   });
 
   app.get('/', function (req, res) {
