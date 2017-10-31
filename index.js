@@ -13,7 +13,8 @@
   const app = express();
 
   app.use(bodyParser.json({limit: '5000kb'})); // for parsing application/json
-  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: true,
+                                  limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
  
 
   const words = require('./words');
