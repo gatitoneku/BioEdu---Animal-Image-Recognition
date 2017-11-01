@@ -44,11 +44,13 @@
     }
   });
 
-  app.post('/mobilecallback', upload.array(), (req, res) => {
+  app.post('/mobilecallback', upload.single('image'), (req, res) => {
     console.log("Congratulations");
   
     var replyString;
     var b64image = req.body.image_path;
+
+          req.file ? console.log(req.file.path) : console.log('none');
 
           fs.writeFile('default.jpg', b64image, 'base64', function (err) {
             console.log(err);
