@@ -2,19 +2,18 @@
   
   const line = require('@line/bot-sdk');
   const express = require('express');
-  var bodyParser = require('body-parser');
-  var {Base64Encode} = require('base64-stream');  
+  var bodyParser = require('body-parser'); 
   var multer = require('multer'); // v1.0.5
   var upload = multer(); // for parsing multipart/form-data
-   //const axios = require('axios');
   const fs = require('fs');
    // create Express app
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  app.use(bodyParser.json({limit: '5000kb'})); // for parsing application/json
+  app.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
   app.use(bodyParser.urlencoded({ extended: true,
                                   limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
+  app.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
  
 
   const words = require('./words');
@@ -27,8 +26,6 @@
   
   // create LINE SDK client
   const client = new line.Client(config);
-  
- 
 
   var isDed = false;
   
@@ -52,33 +49,31 @@
   
     var replyString;
     var b64image = req.body.image_path;
-    //var buf = Buffer.from(b64image, 'base64');
 
           fs.writeFile('default.jpg', b64image, 'base64', function (err) {
             console.log(err);
           });
          
-            const spawn = require('child_process').spawn;
-            const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
+          const spawn = require('child_process').spawn;
+          const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
             
-                  pyproc.stdout.on('data', (data) => {
-                    replyString = String(data);
-                  });
+          pyproc.stdout.on('data', (data) => {
+              replyString = String(data);
+          });
             
-                  pyproc.stderr.on('data', (data) => {
-                    console.log(`stderr: ${data}`);
-                  });
+          pyproc.stderr.on('data', (data) => {
+              console.log(`stderr: ${data}`);
+          });
                   
-                  pyproc.on('close', (code) => {
-                    console.log(`child process exited with code ${code}`);
+          pyproc.on('close', (code) => {
+            console.log(`child process exited with code ${code}`);
     
-                    var replyArrayString = replyString.split(",")
+             var replyArrayString = replyString.split(",")
     
-                    const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
-                    console.log(echo);
-                    res.send(replyArrayString[0]);
-                  });
-        
+            const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
+            console.log(echo);
+            res.send(replyArrayString[0]);
+          });
   });
 
   app.get('/', function (req, res) {
