@@ -129,7 +129,7 @@
                 console.log(`child process exited with code ${code}`);
 
                 var replyArrayString = replyString.split(",")
-                replyArrayString = replyArrayString.split(" (")
+                replyArrayString = replyArrayString[0].split(" (")
 
                 const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
                 return client.replyMessage(event.replyToken, echo);
