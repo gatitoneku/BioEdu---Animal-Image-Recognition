@@ -10,12 +10,13 @@
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  var router = express.Router();
+  //Router for mobile use
+  var mobilerouter = express.Router();
 
-  router.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
-  router.use(bodyParser.urlencoded({ extended: true,
+  mobilerouter.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
+  mobilerouter.use(bodyParser.urlencoded({ extended: true,
                                   limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
-  router.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
+  mobilerouter.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
  
 
   const words = require('./words');
@@ -46,7 +47,7 @@
     }
   });
 
-  router.post('/mobilecallback', upload.single('image'), (req, res) => {
+  mobilerouter.post('/mobilecallback', upload.single('image'), (req, res) => {
     console.log("Congratulations");
   
     var replyString;
@@ -127,7 +128,8 @@
               pyproc.on('close', (code) => {
                 console.log(`child process exited with code ${code}`);
 
-                var replyArrayString = replyString.split(",").split(" (")
+                var replyArrayString = replyString.split(",")
+                replyArrayString = replyArrayString.split(" (")
 
                 const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
                 return client.replyMessage(event.replyToken, echo);
