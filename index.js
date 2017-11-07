@@ -10,10 +10,12 @@
   // about Express itself: https://expressjs.com/
   const app = express();
 
-  app.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
-  app.use(bodyParser.urlencoded({ extended: true,
+  var router = express.Router();
+
+  router.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
+  router.use(bodyParser.urlencoded({ extended: true,
                                   limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
-  app.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
+  router.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
  
 
   const words = require('./words');
@@ -44,7 +46,7 @@
     }
   });
 
-  app.post('/mobilecallback', upload.single('image'), (req, res) => {
+  router.post('/mobilecallback', upload.single('image'), (req, res) => {
     console.log("Congratulations");
   
     var replyString;
