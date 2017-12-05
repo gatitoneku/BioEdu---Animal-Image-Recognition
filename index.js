@@ -2,11 +2,12 @@
   
   const line = require('@line/bot-sdk');
   const express = require('express');
-  var bodyParser = require('body-parser'); 
-  var multer = require('multer'); // v1.0.5
-  var upload = multer(); // for parsing multipart/form-data
+  const bodyParser = require('body-parser'); 
+  const multer = require('multer'); // v1.0.5
+  const upload = multer(); // for parsing multipart/form-data
   const fs = require('fs');
-   // create Express app
+  const conf = require('./config');
+  // create Express app
   // about Express itself: https://expressjs.com/
   const app = express();
 
@@ -22,10 +23,7 @@
   const words = require('./words');
   
   // create LINE SDK config from env variables
-  const config = {
-    channelAccessToken: 'ty6j1NgXbxTY3sVWTk13TbOAvlC6TNtY0EBvSZw02JC+rCRLNcTioRERLgPrfvylOnwCk+rQJW7lYtkSidiH86mHUzkP1ERKcjcC2uLVNM4YfPpOmmeyhW6ojEpN5O/w0G8j/IoF08wRJIplxUfkDQdB04t89/1O/w1cDnyilFU=',
-    channelSecret: '5140e8e814e0a4af5f0e8fc9e0e88753'
-  };
+  const config = conf.config;
   
   // create LINE SDK client
   const client = new line.Client(config);
@@ -47,7 +45,7 @@
     }
   });
 
-  mobilerouter.post('/mobilecallback', upload.single('image'), (req, res) => {
+  mobilerouter.post('/', upload.single('image'), (req, res) => {
     console.log("Congratulations");
   
     var replyString;
@@ -81,6 +79,8 @@
             res.send(replyArrayString[0]);
           });
   });
+
+  app.use('/mobilecallback', mobilerouter);
 
   app.get('/', function (req, res) {
     res.send('Hello World!')
