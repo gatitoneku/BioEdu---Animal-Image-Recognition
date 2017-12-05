@@ -19,7 +19,6 @@
                                   limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
   mobilerouter.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
  
-
   const words = require('./words');
   
   // create LINE SDK config from env variables
