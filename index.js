@@ -51,7 +51,7 @@
     var b64image = req.body.image_path;
 
           req.body ? console.log(req.body) : console.log('none');
-          req.file ? console.log(req.file.path) : console.log('none');
+          req.file ? console.log(req.file) : console.log('none');
 
           fs.writeFile('default.jpg', b64image, 'base64', function (err) {
             console.log(err);
