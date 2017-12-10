@@ -71,7 +71,7 @@
           pyproc.on('close', (code) => {
             console.log(`child process exited with code ${code}`);
     
-             var replyArrayString = replyString.split(",")
+            var replyArrayString = replyString ? replyString.split(",") : ("");
     
             const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
             const echo2 = { type: 'text', text: 'test'};
