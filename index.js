@@ -71,13 +71,13 @@
           pyproc.on('close', (code) => {
             console.log(`child process exited with code ${code}`);
     
-            var replyArrayString = replyString ? replyString.split(",") : ("");
+            var replyArrayString = replyString ? replyString.split(",") : ("a,a");
     
             const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
             const echo2 = { type: 'text', text: 'test'};
             console.log(echo);
-            //res.send(JSON.stringify(replyArrayString[0]));
-            res.send(echo2);
+            res.send(JSON.stringify(replyArrayString[0]));
+            //res.send(echo2);
           });
   });
 
