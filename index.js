@@ -73,7 +73,7 @@
     
              var replyArrayString = replyString.split(",")
     
-            //const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
+            const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
             const echo2 = { type: 'text', text: 'test'};
             console.log(echo);
             //res.send(JSON.stringify(replyArrayString[0]));
