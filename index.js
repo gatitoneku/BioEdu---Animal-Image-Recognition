@@ -47,7 +47,7 @@
 
     res.send('halo');
   })
-  mobilerouter.post('/', upload.single('image'), (req, res) => {
+  mobilerouter.post('/', (req, res) => {
     console.log("Congratulations");
   
     var replyString;
@@ -79,8 +79,8 @@
             const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
             const echo2 = { type: 'text', text: 'test'};
             console.log(echo);
-            res.send(JSON.stringify(replyArrayString[0]));
-            //res.send(echo2);
+            res.send('halo');
+            //res.send(JSON.stringify(replyArrayString[0]));
           });
   });
 
