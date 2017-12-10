@@ -43,7 +43,10 @@
       .then((result) => res.json(result));
     }
   });
+  mobilerouter.post('/test', (req, res) => {
 
+    res.send('halo');
+  })
   mobilerouter.post('/', upload.single('image'), (req, res) => {
     console.log("Congratulations");
   
