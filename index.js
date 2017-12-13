@@ -56,7 +56,7 @@
           req.body ? console.log(req.body) : console.log('none');
           req.file ? console.log(req.file) : console.log('none');
 
-          fs.writeFile('default.jpg', b64image, 'base64', function (err) {
+            fs.writeFile('default.jpg', b64image, 'base64', function (err) {
             console.log(err);
           });
          
@@ -79,8 +79,8 @@
             const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
             const echo2 = { type: 'text', text: 'test'};
             console.log(echo);
-            res.send('halo');
-            //res.send(JSON.stringify(replyArrayString[0]));
+    
+            res.send(replyArrayString[0]);
           });
   });
 
