@@ -7,8 +7,6 @@
   const upload = multer(); // for parsing multipart/form-data
   const fs = require('fs');
   const conf = require('./config');
-  // create Express app
-  // about Express itself: https://expressjs.com/
   const app = express();
 
   //Router for mobile use
