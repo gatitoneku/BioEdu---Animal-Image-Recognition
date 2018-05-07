@@ -3,21 +3,26 @@
   const line = require('@line/bot-sdk');
   const express = require('express');
   const bodyParser = require('body-parser'); 
-  const multer = require('multer'); // v1.0.5
-  const upload = multer(); // for parsing multipart/form-data
+  const multer = require('multer');
+  const upload = multer(); 
   const fs = require('fs');
+
+  //Word list
+  const words = require('./words');
+
+  //Put your LINE access token in the config file
   const conf = require('./config');
+
+  //Create express app
   const app = express();
 
-  //Router for mobile use
+  //Router for mobile app use
   var mobilerouter = express.Router();
 
   mobilerouter.use(bodyParser.json({ limit: '5000kb'})); // for parsing application/json
-  mobilerouter.use(bodyParser.urlencoded({ extended: true,
-                                  limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
+  mobilerouter.use(bodyParser.urlencoded({ extended: true, limit: '5000kb'})); // for parsing application/x-www-form-urlencoded
   mobilerouter.use(bodyParser.raw({ limit: '5000kb'}));  // for parsing raw
  
-  const words = require('./words');
   
   // create LINE SDK config from env variables
   const config = conf.config;
@@ -26,11 +31,13 @@
   const client = new line.Client(config);
 
   var isDed = false;
-  
-  // register a webhook handler with middleware
-  // about the middleware, please refer to doc
+
+  //Routes
+  app.get('/', function (req, res) {
+    res.send('Hello World!')
+  })
+
   app.post('/callback', line.middleware(config), (req, res) => {
-    
     if(isDed) {
       Promise
       .all(req.body.events.map(handleDead)); 
@@ -41,73 +48,57 @@
       .then((result) => res.json(result));
     }
   });
-  mobilerouter.post('/test', (req, res) => {
 
+  mobilerouter.post('/test', (req, res) => {
     res.send('halo');
-  })
+  });
+
   mobilerouter.post('/', (req, res) => {
     console.log("Congratulations");
   
     var replyString;
     var b64image = req.body.image_path;
 
-          req.body ? console.log(req.body) : console.log('none');
-          req.file ? console.log(req.file) : console.log('none');
+    req.body ? console.log(req.body) : console.log('none');
+    req.file ? console.log(req.file) : console.log('none');
 
-            fs.writeFile('default.jpg', b64image, 'base64', function (err) {
-            console.log(err);
-          });
+    fs.writeFile('default.jpg', b64image, 'base64', function (err) {
+      console.log(err);
+    });
          
-          const spawn = require('child_process').spawn;
-          const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
+    const spawn = require('child_process').spawn;
+    const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
             
-          pyproc.stdout.on('data', (data) => {
-              replyString = String(data);
-          });
+    pyproc.stdout.on('data', (data) => {
+      replyString = String(data);
+    });
             
-          pyproc.stderr.on('data', (data) => {
-              console.log(`stderr: ${data}`);
-          });
+    pyproc.stderr.on('data', (data) => {
+      console.log(`stderr: ${data}`);
+    });
                   
-          pyproc.on('close', (code) => {
-            console.log(`child process exited with code ${code}`);
+    pyproc.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
     
-            var replyArrayString = replyString ? replyString.split(",") : ("a,a");
+      var replyArrayString = replyString ? replyString.split(",") : ("a,a");
     
-            const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
-            const echo2 = { type: 'text', text: 'test'};
-            console.log(echo);
+      const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
+      console.log(echo);
     
-            res.send(replyArrayString[0]);
-          });
+      res.send(replyArrayString[0]);
+    });
   });
 
   app.use('/mobilecallback', mobilerouter);
 
-  app.get('/', function (req, res) {
-    res.send('Hello World!')
-  })
-  
-  // event handler
-  function handleEvent(event) {
-    if (event.type !== 'message' || event.message.type !== 'text') {
-      // ignore non-text-message event
-      return Promise.resolve(null);
-    }
-  
-    // create a echoing text message
-    const echo = { type: 'text', text: event.message.text };
-  
-    // use reply API
-    return client.replyMessage(event.replyToken, echo);
-  }
-
+  //Main event handler
   function handleEventWithName(event) {
     if (event.type !== 'message') {
         // ignore non-text-message event
         return Promise.resolve(null);
       }
-   
+
+    // Case for image and text messages
     if (event.message.type === 'image') {
       var replyString;
 
@@ -119,25 +110,24 @@
         const spawn = require('child_process').spawn;
         const pyproc = spawn('python3', ["classify_image.py", "--image_file", "default.jpg"]);
         
-              pyproc.stdout.on('data', (data) => {
-                replyString = String(data);
-              });
+        pyproc.stdout.on('data', (data) => {
+          replyString = String(data);
+        });
         
-              pyproc.stderr.on('data', (data) => {
-                console.log(`stderr: ${data}`);
-              });
+        pyproc.stderr.on('data', (data) => {
+          console.log(`stderr: ${data}`);
+        });
               
-              pyproc.on('close', (code) => {
-                console.log(`child process exited with code ${code}`);
+        pyproc.on('close', (code) => {
+          console.log(`child process exited with code ${code}`);
 
-                var replyArrayString = replyString.split(",")
-                replyArrayString = replyArrayString[0].split(" (")
+          var replyArrayString = replyString.split(",")
+          replyArrayString = replyArrayString[0].split(" (")
 
-                const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
-                return client.replyMessage(event.replyToken, echo);
-              });
-      })
-     
+          const echo = { type: 'text', text: "sepertinya itu adalah " + replyArrayString[0]};
+          return client.replyMessage(event.replyToken, echo);
+        });
+      });
     } 
     else if (event.message.type === 'text') {
       var arrayOfStrings = event.message.text.split(" "); 
